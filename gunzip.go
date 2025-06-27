@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func gunzipFile(src, dest string) error {
+func gunzipFile(src, dest string, buf []byte) error {
 	in, err := os.Open(src)
 	if err != nil {
 		return err
@@ -25,6 +25,6 @@ func gunzipFile(src, dest string) error {
 	}
 	defer out.Close()
 
-	_, err = io.CopyBuffer(out, reader, make([]byte, 32*1024))
+	_, err = io.CopyBuffer(out, reader, buf)
 	return err
 }

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func unzipFile(src, dest string) error {
+func unzipFile(src, dest string, buf []byte) error {
 	reader, err := zip.OpenReader(src)
 	if err != nil {
 		return err
@@ -42,7 +42,7 @@ func unzipFile(src, dest string) error {
 		}
 		defer outFile.Close()
 
-		_, err = io.CopyBuffer(outFile, inFile, make([]byte, 32*1024))
+		_, err = io.CopyBuffer(outFile, inFile, buf)
 		if err != nil {
 			return err
 		}

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func gzipFile(src, dest string) error {
+func gzipFile(src, dest string, buf []byte) error {
 	in, err := os.Open(src)
 	if err != nil {
 		return err
@@ -22,6 +22,6 @@ func gzipFile(src, dest string) error {
 	writer := gzip.NewWriter(out)
 	defer writer.Close()
 
-	_, err = io.CopyBuffer(writer, in, make([]byte, 32*1024))
+	_, err = io.CopyBuffer(writer, in, buf)
 	return err
 }

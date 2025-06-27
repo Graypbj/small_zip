@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func zipFile(src, dest string) error {
+func zipFile(src, dest string, buf []byte) error {
 	outFile, err := os.Create(dest)
 	if err != nil {
 		return err
@@ -47,7 +47,7 @@ func zipFile(src, dest string) error {
 			return err
 		}
 
-		_, err = io.CopyBuffer(writer, inFile, make([]byte, 32*1024))
+		_, err = io.CopyBuffer(writer, inFile, buf)
 		return err
 	})
 }

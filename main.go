@@ -11,6 +11,7 @@ func main() {
 	src := flag.String("src", "", "Source file or directory")
 	dest := flag.String("dest", "", "Destination path")
 	bufSize := flag.Int("bufsize", 32*1024, "Maximum buffer size in bytes: (default: 32KB)")
+	ver := flag.Bool("version", false, "Print version and exit")
 	flag.Parse()
 
 	if *bufSize <= 0 {
@@ -18,6 +19,11 @@ func main() {
 		os.Exit(1)
 	}
 	buffer := make([]byte, *bufSize)
+
+	if *ver {
+		fmt.Println("SmallZip version:", Version)
+		return
+	}
 
 	switch *mode {
 	case "zip":
